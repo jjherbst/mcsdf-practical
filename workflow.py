@@ -5,6 +5,8 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Dict, Any
+from virus_total.upload_exe import scan_and_upload_exe_files
+from virus_total.pdf_report import create_vt_pdf_report
 from entropy.entropy import calculate_entropy as calculate_shannon_entropy
 from packer.packer import is_exe_packed, unpack_upx, decompile_exe_to_pyc    
 from pe_header.pe_headers import parse_pe_headers         
@@ -243,5 +245,16 @@ def main() -> None:
     report.update(run_exe_workflow(exe, Path(input_dir), Path(working_dir), Path(output_dir), Path(yara_rules)))
     generate_pdf_report(report, output_dir / pdf)
 
+def run_virustotal_workflow(scan_directory: str, api_key: str, pdf_output_path: str):
+    """
+    Scans a directory for .exe files, uploads them to VirusTotal, and generates a PDF report.
+    """
+    print(f"Scanning directory for .exe files: {scan_directory}")
+    vt_results = scan_and_upload_exe_files(scan_directory, api_key)
+    print(f"Scan and upload complete. Generating PDF report at: {pdf_output_path}")
+    create_vt_pdf_report(vt_results, pdf_output_path)
+    print("VirusTotal workflow complete.")
+    
 if __name__ == "__main__":
-    main()
+    #main()
+    run_virustotal_workflow("./dist/rq1", "d663e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20532", "./dist/output/vt_malware.pdf")

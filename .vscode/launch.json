@@ -5,16 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Electron Main",
-            "program": "${workspaceFolder}/main.js",
-            "request": "launch",
-            "runtimeExecutable": "electron",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
             // Run the workflow against a sample EXE (auto-detects YARA rules via defaults)
             "name": "Run Workflow (EXE)",
             "type": "debugpy",
