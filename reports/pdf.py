@@ -103,7 +103,7 @@ class malware_analysis_report(FPDF):
             self.highlight_text('No metadata available')
 
     def section_pe_header(self, report: Dict[str, Any]):
-        self.section_title('PE Header Analysis')
+        self.section_title('PE Header Analysis (Executable)')
         peh = report.get('pe_header') or report or {}
         self.set_draw_color(200, 200, 200)
         self.set_font('Arial','B',8)
@@ -363,7 +363,7 @@ def extract_exe_metadata(report):
     result = {}
     exe_metadata_keys = ['Path', 'Name', 'Stem', 'Extension', 'Parent Directory', 
                         'Size', 'Modified Time', 'Created Time', 'Accessed Time', 
-                        'Mode', 'Symbolic Link', 'Absolute Path', 'SHA-256', 'Entropy']
+                        'Mode', 'Symbolic Link', 'SHA-256', 'Entropy']
     
     for key, value in report.items():
         if not key.startswith('Source') and not key.startswith('YARA') and key in exe_metadata_keys:

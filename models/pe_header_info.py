@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from typing import Dict, List
 from .section_info import SectionInfo
 
-
 @dataclass
 class PEHeaderInfo:
 	machine: str

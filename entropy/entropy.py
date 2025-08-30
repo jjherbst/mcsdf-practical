@@ -1,7 +1,7 @@
 import math
 
 def calculate_entropy(data: bytes) -> float:
-    """ calculate shannon entropy manually without scipy dependency. """
+    """ calculate shannon entropy manually without scipy dependency (keep on failing). """
     if not data:
         return 0.0
 

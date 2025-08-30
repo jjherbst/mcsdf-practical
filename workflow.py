@@ -78,8 +78,7 @@ def extract_file_metadata(target_path: Path) -> Dict[str, Any]:
         "Created Time": iso(st.st_ctime),
         "Accessed Time": iso(st.st_atime),
         "Mode": oct(st.st_mode),
-        "Symbolic Link": target_path.is_symlink(),
-        "Absolute Path": str(target_path.resolve())
+        "Symbolic Link": target_path.is_symlink()
     }
 
 def calculate_sha256_hash(file_bytes: bytes) -> Dict[str, Any]:
@@ -264,7 +263,7 @@ def run_full_static_workflow(args):
     """Run full static analysis (source + binary)."""
     source = args.source or Path('benign_malware.py')
     exe = args.exe or Path('benign_malware.exe')
-    pdf = args.pdf or Path('full_analysis.pdf')
+    pdf = f"{Path(args.source).stem}.pdf" or Path('RQ 1 Analysis.pdf')
     input_dir = args.input or Path('./dist/input')
     working_dir = args.working or Path('./dist/working')
     output_dir = args.output or Path('./dist/output')
