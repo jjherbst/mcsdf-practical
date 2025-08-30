@@ -1,7 +1,7 @@
-from scipy.stats import entropy as scipy_entropy  # type: ignore
+import math
 
 def calculate_entropy(data: bytes) -> float:
-    """ calculate shannon entropy using SciPy. """
+    """ calculate shannon entropy manually without scipy dependency. """
     if not data:
         return 0.0
 
@@ -14,8 +14,11 @@ def calculate_entropy(data: bytes) -> float:
     if total == 0:
         return 0.0
 
-    # Convert non-zero counts to probabilities
-    probs = [c / total for c in counts if c]
+    # Calculate Shannon entropy manually
+    entropy = 0.0
+    for count in counts:
+        if count > 0:
+            probability = count / total
+            entropy -= probability * math.log2(probability)
 
-    # Use SciPy's entropy with base-2 (bits per byte)
-    return round(float(scipy_entropy(probs, base=2)), 2)
+    return round(entropy, 2)

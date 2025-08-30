@@ -81,6 +81,20 @@ class malware_analysis_report(FPDF):
         self.set_text_color(0, 0, 0)
         self.ln(2)
 
+    def section_file_metadata_py(self, report: Dict[str, Any]):
+        self.section_title("File Metadata (.py)")
+        if report:
+            self.draw_table(report)
+        else:
+            self.highlight_text('No metadata available')
+
+    def section_file_metadata_exe(self, report: Dict[str, Any]):
+        self.section_title("File Metadata (.exe)")
+        if report:
+            self.draw_table(report)
+        else:
+            self.highlight_text('No metadata available')
+
     def section_file_metadata(self, report: Dict[str, Any]):
         self.section_title("File Metadata")
         if report:
@@ -294,11 +308,13 @@ class malware_analysis_report(FPDF):
     def create_report(self, report: Dict[str, Any]):
         file_meta = report.get('file_metadata', {})
         pe_header = report.get('pe_header', {})
-        sample_name = file_meta.get('file_name') or file_meta.get('path') or 'Sample'
+        sample_name = report["Stem "]
         self.add_cover_page(str(sample_name), dt.utcnow().strftime('%Y-%m-%d %H:%M UTC'))
-        self.add_simple_section_page("Static Analysis", "File & PE Characteristics")
+        self.add_simple_section_page("Static Analysis", "File & PE Header Characteristics")
         self.add_page()
-        self.section_file_metadata(subset(report, "Path","Entropy"))
+        self.section_file_metadata_py(subset(report, "Path ","Entropy "))
+        self.add_page()
+        self.section_file_metadata_exe(extract_exe_metadata(report))
         self.add_page()
         self.section_pe_header(report)
         self.add_simple_section_page("YARA Analysis", "Unified YARA Rule Application")
@@ -340,4 +356,16 @@ def subset(report, start_key, end_key):
             result[key] = value
         if key == end_key:
             break
+    return result
+
+def extract_exe_metadata(report):
+    """Extract executable file metadata (non-Source keys)."""
+    result = {}
+    exe_metadata_keys = ['Path', 'Name', 'Stem', 'Extension', 'Parent Directory', 
+                        'Size', 'Modified Time', 'Created Time', 'Accessed Time', 
+                        'Mode', 'Symbolic Link', 'Absolute Path', 'SHA-256', 'Entropy']
+    
+    for key, value in report.items():
+        if not key.startswith('Source') and not key.startswith('YARA') and key in exe_metadata_keys:
+            result[key] = value
     return result

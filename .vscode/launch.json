@@ -19,6 +19,40 @@
                 "--working=./dist/working",
                 "--yara_rules=./yara_detector/yara_rules.yar"
             ]
+        },
+        {
+            // Run Mode 2: Full Static Analysis (Source + Binary)
+            "name": "Debug Mode 2 - Full Static Analysis",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/workflow.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--mode=2",
+                "--source=benign_malware.py",
+                "--exe=benign_malware.exe",
+                "--input=./dist/input",
+                "--output=./dist/output",
+                "--working=./dist/working",
+                "--yara_rules=./yara_detector/yara_rules.yar",
+                "--pdf=debug_full_analysis.pdf"
+            ]
+        },
+        {
+            // Run Mode 1: Source Only Analysis
+            "name": "Debug Mode 1 - Source Only",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/workflow.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--mode=1",
+                "--source=benign_malware.py",
+                "--input=./dist/input",
+                "--output=./dist/output",
+                "--yara_rules=./yara_detector/yara_rules.yar",
+                "--pdf=debug_source_analysis.pdf"
+            ]
         }
     ]
 }
