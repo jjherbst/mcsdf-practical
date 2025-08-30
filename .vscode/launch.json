@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Electron Main",
+            "program": "${workspaceFolder}/main.js",
+            "request": "launch",
+            "runtimeExecutable": "electron",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            // Run the workflow against a sample EXE (auto-detects YARA rules via defaults)
+            "name": "Run Workflow (EXE)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/workflow.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--source_file=benign_malware.py",
+                "--exe=.benign_malware.exe",
+                "--input=./dist/input",
+                "--output=./dist/output",
+                "--working=./dist/working",
+                "--yara_rules=./yara_detector/yara_rules.yar"
+            ]
+        }
+    ]
+}
