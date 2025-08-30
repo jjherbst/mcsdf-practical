@@ -1,8 +1,7 @@
-# pyright: reportMissingImports=false
 from scipy.stats import entropy as scipy_entropy  # type: ignore
 
 def calculate_entropy(data: bytes) -> float:
-    """ Shannon Entropy using SciPy. """
+    """ calculate shannon entropy using SciPy. """
     if not data:
         return 0.0
 

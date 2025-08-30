@@ -244,7 +244,7 @@ def main() -> None:
     report.update(run_source_workflow(source, Path(input_dir), Path(yara_rules)))
     report.update(run_exe_workflow(exe, Path(input_dir), Path(working_dir), Path(output_dir), Path(yara_rules)))
     generate_pdf_report(report, output_dir / pdf)
-
+    
 def run_virustotal_workflow(scan_directory: str, api_key: str, pdf_output_path: str):
     """
     Scans a directory for .exe files, uploads them to VirusTotal, and generates a PDF report.

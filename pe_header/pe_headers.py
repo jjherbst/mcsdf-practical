@@ -6,9 +6,8 @@ import pefile
 from entropy.entropy import calculate_entropy
 from models.pe_header_info import PEHeaderInfo, SectionInfo
 
-
 def parse_pe_headers(file_path: Path) -> Optional[PEHeaderInfo]:
-	"""Parse PE headers and return a dict with keys matching the PDF report format."""
+	""" extract pe headers and return a dictionary with keys matching the PDF report format."""
 	try:
 		pe = pefile.PE(str(file_path))
 		imports: Dict[str, List[str]] = (

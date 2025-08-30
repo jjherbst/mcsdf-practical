@@ -5,7 +5,6 @@ from models.report import Report
 from reports.pdf import create_pdf_report
 
 def generate_pdf_report(report: Union[dict, Report, None], pdf_output_path: str) -> None:
-	# Always emit PDF (now that we have a path)
 	try:
 		Path(pdf_output_path).parent.mkdir(parents=True, exist_ok=True)
 		create_pdf_report(report, pdf_output_path)
