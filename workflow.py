@@ -10,7 +10,6 @@ from virus_total.pdf_report import create_vt_pdf_report
 from entropy.entropy import calculate_entropy as calculate_shannon_entropy
 from packer.packer import is_exe_packed, unpack_upx, decompile_exe_to_pyc    
 from pe_header.pe_headers import parse_pe_headers         
-from utilities import report
 from yara_detector.yara_scanner import compile_rules, scan_yara_file
 from hash.hash import calculate_sha256         
 from typing import Optional
