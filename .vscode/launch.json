@@ -5,24 +5,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Run the workflow against a sample EXE (auto-detects YARA rules via defaults)
-            "name": "Run Workflow (EXE)",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/workflow.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--source_file=benign_malware.py",
-                "--exe=.benign_malware.exe",
-                "--input=./dist/input",
-                "--output=./dist/output",
-                "--working=./dist/working",
-                "--yara_rules=./yara_detector/yara_rules.yar"
-            ]
-        },
-        {
             // Run Mode 2: Full Static Analysis (Source + Binary)
-            "name": "Debug Mode 2 - Full Static Analysis",
+            "name": "Mode 2 - Full Static Analysis (source and exe)",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/workflow.py",
@@ -35,12 +19,12 @@
                 "--output=./dist/output",
                 "--working=./dist/working",
                 "--yara_rules=./yara_detector/yara_rules.yar",
-                "--pdf=debug_full_analysis.pdf"
+                "--pdf=benign_malware.pdf"
             ]
         },
         {
             // Run Mode 1: Source Only Analysis
-            "name": "Debug Mode 1 - Source Only",
+            "name": "Mode 1 - Source Only",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/workflow.py",
@@ -52,6 +36,21 @@
                 "--output=./dist/output",
                 "--yara_rules=./yara_detector/yara_rules.yar",
                 "--pdf=debug_source_analysis.pdf"
+            ]
+        },
+        {
+            // Run Mode 3: VirusTotal Analysis
+            "name": "Mode 3 - VirusTotal Analysis",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/workflow.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--mode=3",
+                "--scan_directory=./dist/rq1",
+                "--vt_api_key=3e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20",
+                "--output=./dist/output",
+                "--pdf=debug_virustotal_analysis.pdf"
             ]
         }
     ]

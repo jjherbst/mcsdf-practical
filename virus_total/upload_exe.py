@@ -873,13 +873,6 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 	print(f"[DEBUG] Risk Assessment: {result.get('risk_level', 'UNKNOWN')} ({result.get('risk_score', 0)}/100)")
 	return result
 
-def upload_file_to_virustotal(file_path, api_key="d663e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20532"):
-	"""
-	Upload and comprehensively analyze a file using VirusTotal API.
-	Returns a dictionary with all available information.
-	"""
-	return comprehensive_virustotal_analysis(file_path, api_key)
-
 def scan_and_upload_exe_files(directory, api_key):
 	"""
 	Scans a directory for .exe files and uploads each to VirusTotal.
