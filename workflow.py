@@ -15,7 +15,7 @@ from typing import Optional, Dict, Any
 
 # Import analysis modules
 from virus_total.upload_exe import scan_and_upload_exe_files
-from virus_total.pdf_report import create_vt_pdf_report
+from virus_total.csv_report import VTReportCSV
 from entropy.entropy import calculate_entropy as calculate_shannon_entropy
 from packer.packer import is_exe_packed, unpack_upx, decompile_exe_to_pyc    
 from pe_header.pe_headers import parse_pe_headers         
@@ -224,11 +224,16 @@ def run_exe_workflow(exe_path: Path, input_dir: Path, working_dir: Path, output_
         
     return report
 
-def run_virustotal_workflow(scan_directory: str, api_key: str, pdf_output_path: str):
-    """ scans a directory for .exe files, uploads them to VirusTotal, and generates a PDF report. """
+def run_virustotal_workflow(scan_directory: str, api_key: str, csv_output_path: str):
     vt_results = scan_and_upload_exe_files(scan_directory, api_key)
-    create_vt_pdf_report(vt_results, pdf_output_path)
-    print("VirusTotal workflow complete.")
+    
+    # Generate CSV report
+    csv_report = VTReportCSV(csv_output_path)
+    for file_path, data in vt_results.items():
+        csv_report.add_file_data(file_path, data)
+    csv_report.save_report()
+    
+    print("VirusTotal workflow complete - CSV report generated.")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -292,10 +297,10 @@ def run_virustotal_analysis(args):
     scan_directory = args.scan_directory or "./dist/rq1"
     api_key = args.vt_api_key or "d663e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20532"
     output_dir = args.output or Path('./dist/output')
-    pdf_output = output_dir / (args.pdf or Path('virustotal_analysis.pdf'))
+    csv_output = output_dir / (args.csv or Path('malware_analysis.csv'))
     
     print(f"Running VirusTotal analysis on directory: {scan_directory}")
-    run_virustotal_workflow(scan_directory, api_key, str(pdf_output))
+    run_virustotal_workflow(scan_directory, api_key, str(csv_output))
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -307,9 +312,8 @@ def display_menu():
     print("\n" + "="*60)
     print("MALWARE ANALYSIS WORKFLOW")
     print("="*60)
-    print("1. Static Analysis - Python Source File Only")
-    print("2. Static Analysis - Python Source + Binary (.exe)")
-    print("3. VirusTotal Analysis - Scan and Upload")
+    print("1. Static Analysis - Python Source + Binary (.exe)")
+    print("2. VirusTotal Analysis - Scan and Upload")
     print("="*60)
 
 def get_user_choice():

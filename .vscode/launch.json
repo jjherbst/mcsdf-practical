@@ -31,10 +31,10 @@
             "console": "integratedTerminal",
             "args": [
                 "--mode=2",
-                "--scan_directory=./dist/rq2",
+                "--scan_directory=./dist/input",
                 "--vt_api_key=d663e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20532",
                 "--output=./dist/output",
-                "--pdf=debug_virustotal_analysis.pdf"
+                "--csv=malware_analysis.csv"
             ]
         }
     ]

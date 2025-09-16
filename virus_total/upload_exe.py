@@ -108,7 +108,7 @@ def upload_file_to_vt(file_path, headers):
 	result["analysis_id"] = analysis_id
 	
 	# Wait for analysis to complete (with timeout)
-	print("[DEBUG] Waiting for analysis...")
+	print("[-] Waiting for analysis...")
 	max_wait = 180  # 3 minutes
 	wait_interval = 15  # 15 seconds
 	elapsed = 0
@@ -123,10 +123,10 @@ def upload_file_to_vt(file_path, headers):
 			result["analysis_date"] = str(analysis_data.get("date", "N/A"))
 			
 			if status == "completed":
-				print("[DEBUG] Analysis completed")
+				print("[-] Analysis completed")
 				break
 			else:
-				print(f"[DEBUG] Analysis status: {status}, waiting...")
+				print(f"[-] Analysis status: {status}, waiting...")
 				time.sleep(wait_interval)
 				elapsed += wait_interval
 		else:
@@ -140,7 +140,7 @@ def get_community_intelligence(file_hash, headers):
 	
 	try:
 		# Comments
-		print("[DEBUG] Getting comments...")
+		print("[-] Getting comments...")
 		comments_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/comments"
 		comments_resp = requests.get(comments_url, headers=headers)
 		if comments_resp.status_code == 200:
@@ -157,7 +157,7 @@ def get_community_intelligence(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Votes
-		print("[DEBUG] Getting votes...")
+		print("[-] Getting votes...")
 		votes_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/votes"
 		votes_resp = requests.get(votes_url, headers=headers)
 		if votes_resp.status_code == 200:
@@ -186,7 +186,7 @@ def get_behavioral_data(file_hash, headers):
 	
 	try:
 		# Behavior analysis
-		print("[DEBUG] Getting behavior analysis...")
+		print("[-] Getting behavior analysis...")
 		behavior_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/behaviour_summary"
 		behavior_resp = requests.get(behavior_url, headers=headers)
 		if behavior_resp.status_code == 200:
@@ -213,7 +213,7 @@ def get_network_data(file_hash, headers):
 	
 	try:
 		# Contacted URLs
-		print("[DEBUG] Getting contacted URLs...")
+		print("[-] Getting contacted URLs...")
 		urls_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/contacted_urls"
 		urls_resp = requests.get(urls_url, headers=headers)
 		if urls_resp.status_code == 200:
@@ -227,7 +227,7 @@ def get_network_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Contacted domains
-		print("[DEBUG] Getting contacted domains...")
+		print("[-] Getting contacted domains...")
 		domains_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/contacted_domains"
 		domains_resp = requests.get(domains_url, headers=headers)
 		if domains_resp.status_code == 200:
@@ -241,7 +241,7 @@ def get_network_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Contacted IPs
-		print("[DEBUG] Getting contacted IPs...")
+		print("[-] Getting contacted IPs...")
 		ips_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/contacted_ips"
 		ips_resp = requests.get(ips_url, headers=headers)
 		if ips_resp.status_code == 200:
@@ -265,7 +265,7 @@ def get_file_relationships(file_hash, headers):
 	
 	try:
 		# Similar files
-		print("[DEBUG] Getting similar files...")
+		print("[-] Getting similar files...")
 		similar_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/similar"
 		similar_resp = requests.get(similar_url, headers=headers)
 		if similar_resp.status_code == 200:
@@ -280,7 +280,7 @@ def get_file_relationships(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Execution parents
-		print("[DEBUG] Getting execution parents...")
+		print("[-] Getting execution parents...")
 		parents_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/execution_parents"
 		parents_resp = requests.get(parents_url, headers=headers)
 		if parents_resp.status_code == 200:
@@ -295,7 +295,7 @@ def get_file_relationships(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Execution children
-		print("[DEBUG] Getting execution children...")
+		print("[-] Getting execution children...")
 		children_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/execution_children"
 		children_resp = requests.get(children_url, headers=headers)
 		if children_resp.status_code == 200:
@@ -309,7 +309,7 @@ def get_file_relationships(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Bundle info (for PE files)
-		print("[DEBUG] Getting bundle info...")
+		print("[-] Getting bundle info...")
 		bundle_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/bundle_info"
 		bundle_resp = requests.get(bundle_url, headers=headers)
 		if bundle_resp.status_code == 200:
@@ -322,7 +322,7 @@ def get_file_relationships(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Downloaders
-		print("[DEBUG] Getting downloaders...")
+		print("[-] Getting downloaders...")
 		downloaders_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/downloaders"
 		downloaders_resp = requests.get(downloaders_url, headers=headers)
 		if downloaders_resp.status_code == 200:
@@ -336,7 +336,7 @@ def get_file_relationships(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Dropped files
-		print("[DEBUG] Getting dropped files...")
+		print("[-] Getting dropped files...")
 		dropped_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/dropped_files"
 		dropped_resp = requests.get(dropped_url, headers=headers)
 		if dropped_resp.status_code == 200:
@@ -360,7 +360,7 @@ def get_advanced_analysis_data(file_hash, headers):
 	
 	try:
 		# YARA rules
-		print("[DEBUG] Getting YARA rules...")
+		print("[-] Getting YARA rules...")
 		yara_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/yara_rules"
 		yara_resp = requests.get(yara_url, headers=headers)
 		if yara_resp.status_code == 200:
@@ -382,7 +382,7 @@ def get_advanced_analysis_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Sigma rules
-		print("[DEBUG] Getting Sigma rules...")
+		print("[-] Getting Sigma rules...")
 		sigma_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/sigma_rules"
 		sigma_resp = requests.get(sigma_url, headers=headers)
 		if sigma_resp.status_code == 200:
@@ -404,7 +404,7 @@ def get_advanced_analysis_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Crowdsourced IDS rules
-		print("[DEBUG] Getting IDS rules...")
+		print("[-] Getting IDS rules...")
 		ids_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/crowdsourced_ids_rules"
 		ids_resp = requests.get(ids_url, headers=headers)
 		if ids_resp.status_code == 200:
@@ -416,7 +416,7 @@ def get_advanced_analysis_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Sandbox reports
-		print("[DEBUG] Getting sandbox reports...")
+		print("[-] Getting sandbox reports...")
 		sandbox_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/sandbox_reports"
 		sandbox_resp = requests.get(sandbox_url, headers=headers)
 		if sandbox_resp.status_code == 200:
@@ -441,7 +441,7 @@ def get_file_structure_analysis(file_hash, headers):
 	
 	try:
 		# PE structure and entropy analysis (from main file data)
-		print("[DEBUG] Getting detailed file structure...")
+		print("[-] Getting detailed file structure...")
 		file_url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
 		file_resp = requests.get(file_url, headers=headers)
 		
@@ -543,7 +543,7 @@ def get_string_and_content_analysis(file_hash, headers):
 	
 	try:
 		# String analysis (if available in VT response)
-		print("[DEBUG] Getting content analysis...")
+		print("[-] Getting content analysis...")
 		file_url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
 		file_resp = requests.get(file_url, headers=headers)
 		
@@ -659,7 +659,7 @@ def get_threat_intelligence_data(file_hash, headers):
 	
 	try:
 		# Threat categories
-		print("[DEBUG] Getting threat categories...")
+		print("[-] Getting threat categories...")
 		categories_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/threat_categories"
 		categories_resp = requests.get(categories_url, headers=headers)
 		if categories_resp.status_code == 200:
@@ -673,7 +673,7 @@ def get_threat_intelligence_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Collections (threat actor groups, campaigns, etc.)
-		print("[DEBUG] Getting collections...")
+		print("[-] Getting collections...")
 		collections_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/collections"
 		collections_resp = requests.get(collections_url, headers=headers)
 		if collections_resp.status_code == 200:
@@ -687,7 +687,7 @@ def get_threat_intelligence_data(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# MITRE ATT&CK tactics and techniques
-		print("[DEBUG] Getting MITRE ATT&CK data...")
+		print("[-] Getting MITRE ATT&CK data...")
 		attack_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/attack_techniques"
 		attack_resp = requests.get(attack_url, headers=headers)
 		if attack_resp.status_code == 200:
@@ -723,7 +723,7 @@ def get_metadata_and_submissions(file_hash, headers):
 	
 	try:
 		# Detailed submissions history
-		print("[DEBUG] Getting submissions history...")
+		print("[-] Getting submissions history...")
 		submissions_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/submissions"
 		submissions_resp = requests.get(submissions_url, headers=headers)
 		if submissions_resp.status_code == 200:
@@ -743,7 +743,7 @@ def get_metadata_and_submissions(file_hash, headers):
 		time.sleep(1)  # Rate limiting
 		
 		# Names and paths from submissions
-		print("[DEBUG] Getting file names history...")
+		print("[-] Getting file names history...")
 		names_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/names"
 		names_resp = requests.get(names_url, headers=headers)
 		if names_resp.status_code == 200:
@@ -797,14 +797,14 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 	file_hash = get_file_hash(file_path)
 	result = extract_basic_file_info(file_path, file_hash)
 	
-	print(f"[DEBUG] File SHA256: {file_hash}")
+	print(f"[-] File SHA256: {file_hash}")
 	
 	# Step 2: Check if file already exists in VirusTotal
 	file_url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
 	file_resp = requests.get(file_url, headers=headers)
 	
 	if file_resp.status_code == 200:
-		print("[DEBUG] File already exists in VirusTotal")
+		print("[-] File already exists in VirusTotal")
 		file_data = file_resp.json()["data"]["attributes"]
 		
 		# Extract comprehensive file information
@@ -812,7 +812,7 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 		result.update(vt_data)
 		
 	else:
-		print("[DEBUG] File not found, uploading...")
+		print("[-] File not found, uploading...")
 		# Upload file if not exists
 		upload_result = upload_file_to_vt(file_path, headers)
 		
@@ -830,7 +830,7 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 			result.update(vt_data)
 	
 	# Step 3: Get comprehensive intelligence data
-	print("[DEBUG] Gathering comprehensive intelligence...")
+	print("[-] Gathering comprehensive intelligence...")
 	
 	community_data = get_community_intelligence(file_hash, headers)
 	result.update(community_data)
@@ -868,8 +868,8 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 	# Step 4: Calculate risk assessment
 	result = calculate_risk_assessment(result)
 	
-	print(f"[DEBUG] Analysis complete. Found {len(result)} data points")
-	print(f"[DEBUG] Risk Assessment: {result.get('risk_level', 'UNKNOWN')} ({result.get('risk_score', 0)}/100)")
+	print(f"[-] Analysis complete. Found {len(result)} data points")
+	print(f"[-] Risk Assessment: {result.get('risk_level', 'UNKNOWN')} ({result.get('risk_score', 0)}/100)")
 	return result
 
 def scan_and_upload_exe_files(directory, api_key):
