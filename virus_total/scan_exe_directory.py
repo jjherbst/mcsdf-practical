@@ -6,6 +6,6 @@ def find_exe_files(directory):
 	exe_files = []
 	for root, _, files in os.walk(abs_directory):
 		for file in files:
-			if file.lower().startswith("evasion") and file.lower().endswith('.exe'):
+			if (file.lower().startswith("evasion") or file.lower().startswith("metamorphic-virus--")) and file.lower().endswith('.exe'):
 				exe_files.append(os.path.join(root, file))
 	return exe_files
