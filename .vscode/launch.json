@@ -47,8 +47,8 @@
             "console": "integratedTerminal",
             "args": [
                 "--mode=3",
-                "--scan_directory=./dist/rq1",
-                "--vt_api_key=3e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20",
+                "--scan_directory=./dist/rq2",
+                "--vt_api_key=d663e661563ec1b91a40086b3506645fd6af544eecf25fe59027dd5940e20532",
                 "--output=./dist/output",
                 "--pdf=debug_virustotal_analysis.pdf"
             ]

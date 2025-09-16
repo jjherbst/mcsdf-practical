@@ -797,7 +797,6 @@ def comprehensive_virustotal_analysis(file_path, api_key):
 	file_hash = get_file_hash(file_path)
 	result = extract_basic_file_info(file_path, file_hash)
 	
-	print(f"[DEBUG] Analyzing file: {file_path}")
 	print(f"[DEBUG] File SHA256: {file_hash}")
 	
 	# Step 2: Check if file already exists in VirusTotal

@@ -226,9 +226,7 @@ def run_exe_workflow(exe_path: Path, input_dir: Path, working_dir: Path, output_
 
 def run_virustotal_workflow(scan_directory: str, api_key: str, pdf_output_path: str):
     """ scans a directory for .exe files, uploads them to VirusTotal, and generates a PDF report. """
-    print(f"Scanning directory for .exe files: {scan_directory}")
     vt_results = scan_and_upload_exe_files(scan_directory, api_key)
-    print(f"Scan and upload complete. Generating PDF report at: {pdf_output_path}")
     create_vt_pdf_report(vt_results, pdf_output_path)
     print("VirusTotal workflow complete.")
 
