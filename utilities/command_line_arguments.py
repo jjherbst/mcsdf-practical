@@ -7,13 +7,13 @@ def parse_arguments() -> argparse.Namespace:
         description="Static (.py, .pyc, .exe and upx packed .exe) analysis with YARA."
     )
     # Mode selection
-    parser.add_argument("--mode", dest="mode", type=int, choices=[1, 2, 3], 
-                       help="Analysis mode: \n\t[1] Custom Static Analysis Source only, \n\t[2] Custom Static Analysis Source+Binary, \n\t[3] Custom Analysis VirusTotal")
+    parser.add_argument("--mode", dest="mode", type=int, choices=[1, 2], 
+                       help="Analysis mode: \n\t[1] Custom Static Analysis, \n\t[2] Custom Analysis with VirusTotal")
     
     # File arguments
-    parser.add_argument("--source", dest="source", type=Path, help="Python source code file (.py).")
+    parser.add_argument("--source", dest="source", type=Path, help="Python source code file (.py)")
     parser.add_argument("--exe", dest="exe", type=Path, help="Executable (.exe) (PyInstaller/UPX)")
-    parser.add_argument("--pdf", dest="pdf", type=Path, default="default_report.pdf", help="PDF report name.")
+    parser.add_argument("--pdf", dest="pdf", type=Path, default="malware_analysis.pdf", help="PDF report name that contains analysis.")
     
     # Directory arguments
     parser.add_argument("--input", dest="input", type=Path, default=Path('./dist/input'), help="Input directory")

@@ -337,10 +337,6 @@ def main() -> None:
         # If argument parsing fails, go to interactive mode with defaults
         args = parse_arguments().parse_args([])
     
-    # If source is provided and pdf is default, update pdf name based on source
-    if args.source and args.pdf == Path("default_report.pdf"):
-        args.pdf = f"{Path(args.source).stem}.pdf"
-    
     # If mode is specified via command line, use it directly
     if hasattr(args, 'mode') and args.mode:
         mode = args.mode
@@ -351,10 +347,8 @@ def main() -> None:
     
     # Execute based on selected mode
     if mode == 1:
-        run_source_only_workflow(args)
-    elif mode == 2:
         run_full_static_workflow(args)
-    elif mode == 3:
+    elif mode == 2:
         run_virustotal_analysis(args)
     else:
         print("Invalid mode selected")
