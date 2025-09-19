@@ -201,6 +201,8 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+malware.bin
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
